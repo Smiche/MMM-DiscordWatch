@@ -1,0 +1,90 @@
+.MMM-DiscordWatch .symbol {
+    padding-left: 10px;
+    padding-right: 0px;
+    font-size: 80%;
+    vertical-align: top;
+}
+  
+.MMM-DiscordWatch .symbol span {
+    display: inline-block;
+    transform: translate(0, 2px);
+}
+
+.MMM-DiscordWatch .author {
+    vertical-align: top;
+    border-right-width: 1px;
+    border-right-style: groove;
+    padding-right: 5px;
+}
+
+.MMM-DiscordWatch .message {
+    padding-left: 5px;
+    padding-right: 0;
+    text-align: left;
+}
+  
+.MMM-DiscordWatch .time {
+    padding-left: 30px;
+    text-align: right;
+    vertical-align: top;
+}
+
+.MMM-DiscordWatch .small .author {
+    vertical-align: top;
+    width: 40px;
+    height: 40px;
+    margin-right: 10px;
+}
+
+.MMM-DiscordWatch .medium .author  {
+    vertical-align: top;
+    width: 40px;
+    height: 40px;
+    margin-right: 10px;
+}
+
+.MMM-DiscordWatch .large .author  {
+    vertical-align: middle;
+    width: 80px;
+    height: 80px;
+    margin-right: 10px;
+}
+
+.MMM-DiscordWatch .small .time {
+    min-width: 130px;
+}
+
+.MMM-DiscordWatch .medium .time {
+    min-width: 190px;
+}
+
+.MMM-DiscordWatch .large .time {
+    min-width: 400px;
+}
+
+.MMM-DiscordWatch .small .channel {
+    font-size: 10px;
+    line-height: 20px;
+    
+    padding-left: 5px;
+    padding-right: 0;
+    text-align: left;
+}
+
+.MMM-DiscordWatch .medium .channel {
+    font-size: 15px;
+    line-height: 15px;
+    
+    padding-left: 5px;
+    padding-right: 0;
+    text-align: left;
+}
+
+.MMM-DiscordWatch .large .channel {
+    font-size: 30px;
+    line-height: 32px;
+    
+    padding-left: 5px;
+    padding-right: 0;
+    text-align: left;
+}
