@@ -1,6 +1,6 @@
 {
   "name": "mmm-discordwatch",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "MagicMirror2 module for watching discord channels.",
   "main": "index.js",
   "scripts": {
