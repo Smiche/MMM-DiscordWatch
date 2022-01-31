@@ -7,7 +7,7 @@ Module.register("MMM-DiscordWatch", {
         maxMessageLength: 25,
         maxAuthorLength: 8,
         maxMessageLines: 1,
-        wrapEvents: false, // wrap events to multiple lines breaking at maxMessageLength        
+        wrapEvents: false, // wrap events to multiple lines breaking at maxMessageLength
         fade: true,
         fadePoint: 0.25,
         showChannel: true,
@@ -31,14 +31,11 @@ Module.register("MMM-DiscordWatch", {
     },
     // Override socket notification handler.
     socketNotificationReceived: function (notification, payload) {
-        if (this.identifier !== payload.id) {
-            return;
-        }
+        if (this.identifier !== payload.id) return;
 
         if (notification === "NEW_MESSAGE") {
-            if (payload.messages) {
-                this.messages = this.messages.concat(payload.messages);
-            } else {
+            if (payload.messages) this.messages = this.messages.concat(payload.messages);
+            else {
                 this.messages.pop();
                 this.messages.unshift(payload);
             }
@@ -46,17 +43,14 @@ Module.register("MMM-DiscordWatch", {
         } else if (notification === "ERROR") {
             Log.error("Error:", payload.err);
             this.loaded = true;
-        } else if (notification === "CONNECTED") {
-            this.loaded = true;
-        }
-
+        } else if (notification === "CONNECTED") this.loaded = true;
         this.updateDom(0);
     },
     // Override dom generator.
     getDom: function () {
         Log.log("getDom: " + this.name);
-        var messages = this.messages;
-        var wrapper = document.createElement("table");
+        let messages = this.messages;
+        let wrapper = document.createElement("table");
         wrapper.className = this.config.tableClass;
 
         if (messages.length === 0) {
@@ -73,13 +67,13 @@ Module.register("MMM-DiscordWatch", {
             var fadeSteps = messages.length - startFade;
         }
 
-        var currentFadeStep = 0;
+        let currentFadeStep = 0;
 
-        for (var mi in messages) {
-            var message = messages[mi];
+        for (let mi in messages) {
+            let message = messages[mi];
             console.log(message);
 
-            var mesWrapper = document.createElement("tr");
+            let mesWrapper = document.createElement("tr");
             mesWrapper.className = "normal";
             if (mi >= startFade) {
                 currentFadeStep = mi - startFade;
@@ -87,22 +81,22 @@ Module.register("MMM-DiscordWatch", {
             }
 
             //author
-            var authorWrapper = document.createElement("td");
+            let authorWrapper = document.createElement("td");
             authorWrapper.innerHTML = this.titleTransform(message.author, false, this.config.maxAuthorLength, 1);
             authorWrapper.className = "author";
             mesWrapper.appendChild(authorWrapper);
 
-            var contentWrapper = document.createElement("td");
+            let contentWrapper = document.createElement("td");
 
             //message text
-            var messageDiv = document.createElement("div");
+            let messageDiv = document.createElement("div");
             messageDiv.innerHTML = this.titleTransform(message.text, this.config.wrapEvents, this.config.maxMessageLength, this.config.maxMessageLines);
             messageDiv.className = "message"
             contentWrapper.appendChild(messageDiv);
 
             //channel name
             if (this.config.showChannel) {
-                var channel = document.createElement("div");
+                let channel = document.createElement("div");
                 channel.innerHTML = this.titleTransform(message.channel, this.config.wrapEvents, this.config.maxMessageLength, this.config.maxMessageLines);
                 channel.className = "channel"
                 contentWrapper.appendChild(channel);
@@ -132,10 +126,10 @@ Module.register("MMM-DiscordWatch", {
     },
     /**
      * I found this in the gitlab MR module, I guess it trims titles to fit a certain size.
-     * @param {*} string 
-     * @param {*} wrapEvents 
-     * @param {*} maxLength 
-     * @param {*} maxMessageLines 
+     * @param {*} string
+     * @param {*} wrapEvents
+     * @param {*} maxLength
+     * @param {*} maxMessageLines
      */
     titleTransform: function (string, wrapEvents, maxLength, maxMessageLines) {
         if (typeof string !== "string") {
