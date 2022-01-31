@@ -4,7 +4,7 @@
     font-size: 80%;
     vertical-align: top;
 }
-  
+
 .MMM-DiscordWatch .symbol span {
     display: inline-block;
     transform: translate(0, 2px);
@@ -22,7 +22,7 @@
     padding-right: 0;
     text-align: left;
 }
-  
+
 .MMM-DiscordWatch .time {
     padding-left: 30px;
     text-align: right;
@@ -65,7 +65,7 @@
 .MMM-DiscordWatch .small .channel {
     font-size: 10px;
     line-height: 20px;
-    
+
     padding-left: 5px;
     padding-right: 0;
     text-align: left;
@@ -74,7 +74,7 @@
 .MMM-DiscordWatch .medium .channel {
     font-size: 15px;
     line-height: 15px;
-    
+
     padding-left: 5px;
     padding-right: 0;
     text-align: left;
@@ -83,7 +83,7 @@
 .MMM-DiscordWatch .large .channel {
     font-size: 30px;
     line-height: 32px;
-    
+
     padding-left: 5px;
     padding-right: 0;
     text-align: left;

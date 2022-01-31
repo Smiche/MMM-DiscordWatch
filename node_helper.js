@@ -1,6 +1,6 @@
 const NodeHelper = require("node_helper");
 const Log = require("../../js/logger");
-const Discord = require('discord.js');
+const { Client, Intents } = require('discord.js');
 
 module.exports = NodeHelper.create({
     // Override start method.
@@ -18,7 +18,7 @@ module.exports = NodeHelper.create({
     },
 
     createDiscordClient: function (config, identifier) {
-        var self = this;
+        let self = this;
         console.log("connecting to discord.");
         // no token provided, we exit
         if (!config.discordToken) {
@@ -26,7 +26,9 @@ module.exports = NodeHelper.create({
             return;
         }
 
-        const client = new Discord.Client();
+        const client = new Client({
+            intents: Object.keys(Intents.FLAGS)
+        });
 
         client.on('ready', () => {
             console.debug(`Logged in as ${client.user.tag}!`);
@@ -35,7 +37,7 @@ module.exports = NodeHelper.create({
             this.requestLastMessages(client, config, identifier);
         });
 
-        client.on('message', msg => {
+        client.on('messageCreate', msg => {
             if (config.subscribedChannels.indexOf(msg.channel.id) > -1) {
                 self.sendSocketNotification("NEW_MESSAGE", { id: identifier, text: msg.content, author: msg.author.username, channel: msg.channel.name, createdAt: msg.createdAt })
             }
@@ -50,37 +52,35 @@ module.exports = NodeHelper.create({
     /**
      * This will attempt to fetch maxEntries amount of messages from each subscribed channel,
      * then sort by date and submit the newest maxEntries amount of messages.
-     * 
+     *
      * @param {*} client discord client that is already connected preferably
-     * @param {*} config 
+     * @param {*} config
      */
     requestLastMessages: function (client, config, identifier) {
-        var self = this;
-        var channels = [];
-        config.subscribedChannels.forEach((chanId) => {
-            channels.push(client.channels.cache.get(chanId));
+        let self = this;
+        let channels = [];
+        config.subscribedChannels.forEach((ChId) => {
+            channels.push(client.channels.cache.get(ChId));
         })
 
-        var promises = [];
-        for (const chan of channels) {
-            promises.push(chan.messages.fetch({limit: config.maxEntries}));
-        }
+        let promises = [];
+        for (const Channel of channels) promises.push(Channel.messages.fetch({ limit: config.maxEntries }));
 
         Promise.all(promises).then((messagesArray) => {
-            var messages = [];
+            let messages = [];
             messagesArray.forEach(arr => {
-                messages = messages.concat(arr.array());
+                messages = messages.concat(...arr.values());
             });
-            console.log("MessArr:",messages);
+            //console.log("MessArr:", messages);
             messages = messages.sort((a, b) => {
                 return new Date(b.createdAt) - new Date(a.createdAt);
             })
-            console.log("Sorted?");
+            //console.log("Sorted?");
             messages.splice(config.maxEntries);
-            console.log(messages);
+            //console.log(messages);
             messages = messages.map((msg) => {
                 return { text: msg.content, author: msg.author.username, channel: msg.channel.name, createdAt: msg.createdAt };
-            })
+            });
             self.sendSocketNotification("NEW_MESSAGE", { id: identifier, messages: messages });
         }).catch(err => {
             console.error(err);
