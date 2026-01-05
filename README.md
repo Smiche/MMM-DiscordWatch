@@ -42,6 +42,7 @@ Example config:
         fadePoint: 0.25,
         showChannel: true,
         subscribedChannels: ["123456891373953034","123456038079119360"], //2 channels to listen to for example
+        alertOnMentionTime: 5000
       }
     },
 ```
@@ -61,3 +62,4 @@ Example config:
 | `fadePoint` | Location of the fade. | **0.25** |
 | `showChannel` | Whether to show the source channel of the message or not. | **true** |
 | `subscribedChannels` | Array of channels that the module will listen to | **[]** |
+| `alertOnMentionTime` | If the bot's name is mentioned in any of the subscribed channels, an alert with the message text will be displayed for this many milliseconds. | **0** |

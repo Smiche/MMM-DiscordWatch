@@ -39,8 +39,9 @@ module.exports = NodeHelper.create({
 
         client.on('messageCreate', msg => {
             if (config.subscribedChannels.indexOf(msg.channel.id) > -1) {
-                self.sendSocketNotification("NEW_MESSAGE", { id: identifier, text: msg.content, author: msg.author.username, channel: msg.channel.name, createdAt: msg.createdAt })
-            }
+				mentionflag = msg.content.includes(client.user.username) || msg.content.includes(client.user.id)
+                self.sendSocketNotification("NEW_MESSAGE", { id: identifier, text: msg.content, author: msg.author.username, channel: msg.channel.name, createdAt: msg.createdAt, mention: mentionflag })
+			   }
         });
 
         client.login(config.discordToken).catch(err => {

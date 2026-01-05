@@ -12,6 +12,7 @@ Module.register("MMM-DiscordWatch", {
         fadePoint: 0.25,
         showChannel: true,
         subscribedChannels: [],
+        alertOnMentionTime: 0,
     },
 
     // Define required scripts.
@@ -38,6 +39,16 @@ Module.register("MMM-DiscordWatch", {
             else {
                 this.messages.pop();
                 this.messages.unshift(payload);
+					  if(payload.mention && this.config.alertOnMentionTime > 0){
+						  this.sendNotification("SHOW_ALERT", {
+								title: "Discord message from " + payload.author,
+								titleType: "text",
+								message: "<span class=\"large\">" + payload.text.replace(/<[^>]+>/g, '') + "</span>",
+								messageType: "html",
+								imageFA: "comment",
+								timer: this.config.alertOnMentionTime,
+							});
+					   }
             }
             this.loaded = true;
         } else if (notification === "ERROR") {
@@ -71,7 +82,7 @@ Module.register("MMM-DiscordWatch", {
 
         for (let mi in messages) {
             let message = messages[mi];
-            console.log(message);
+            //console.log(message);
 
             let mesWrapper = document.createElement("tr");
             mesWrapper.className = "normal";
