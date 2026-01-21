@@ -1,7 +1,7 @@
 {
   "name": "mmm-discordwatch",
   "version": "0.2.0",
-  "description": "MagicMirror2 module for watching discord channels.",
+  "description": "MagicMirror² module for watching discord channels.",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
@@ -12,7 +12,7 @@
     "discord"
   ],
   "author": "Smiche",
-  "license": "CC Zero",
+  "license": "CC0-1.0",
   "dependencies": {
     "discord.js": "^13.6.0"
   },
